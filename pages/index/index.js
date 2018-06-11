@@ -16,6 +16,26 @@ Page({
     })
   },
   onLoad: function () {
+    // 登录
+    wx.login({
+      success: res => {
+        console.log('code:'+res.code)
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        wx.request({
+          url: 'https://carshop.manmanh.com/api/wx/openid/'+ res.code,
+          data: {},
+          header: {
+              'content-type': 'application/json'
+          },
+          success: function(res) {
+            let openid = res.header.openid //返回openid
+            console.log('openId:'+openid)
+            app.globalData.openId = openid
+          }
+        })
+      }
+    })
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

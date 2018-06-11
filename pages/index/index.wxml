@@ -1,1 +1,1 @@
-<web-view src="https://carshop.manmanh.com" />
+<web-view src="{{url}}" />
