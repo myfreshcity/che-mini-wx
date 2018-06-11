@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    url: 'https://carshop.manmanh.com',
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,

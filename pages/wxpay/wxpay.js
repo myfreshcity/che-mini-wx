@@ -3,7 +3,7 @@ Page({
     logs: []
   },
   onLoad: function (options) {  
-    console.log(options);
+    console.log(options)
     var that = this;
     //页面加载调取微信支付（原则上应该对options的携带的参数进行校验）
     wx.request({
@@ -11,6 +11,7 @@ Page({
           method: 'POST',
           data: {
             total_fee: options.total_fee,
+            order_id: options.order_id,
             openid: getApp().globalData.openId
           },
           success: function(res) {
@@ -42,9 +43,12 @@ Page({
         //上一个页面 （index page）   
         var prevPage = pages[pages.length - 2];    
         //通过page.setData方法使index的webview 重新加载url  有点类似于后台刷新页面  
-        //此处有点类似小程序通过加载URL的方式回调通知后端 该订单支付成功。后端逻辑不做赘述。  
+        //此处有点类似小程序通过加载URL的方式回调通知后端 该订单支付成功。后端逻辑不做赘述。
+          let currentTime = new Date().getTime()
+          let new_url =  "https://carshop.manmanh.com/#/car/pay?payResult=1&time="+currentTime
+          console.log('forward url:' + new_url) 
           prevPage.setData({  
-            url: "https://carshop.manmanh.com/#/car/pay?payResult=1",  
+            url: new_url,  
               
           }),  
           //小程序主动返回到上一个页面。即从wxpay page到index page。此时index page的webview已经重新加载了url 了  
