@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    url: 'https://carshop.manmanh.com',
+    url: '',
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -17,6 +17,7 @@ Page({
     })
   },
   onLoad: function () {
+    let vm = this
     // 登录
     wx.login({
       success: res => {
@@ -30,7 +31,9 @@ Page({
           },
           success: function(res) {
             let openid = res.header.openid //返回openid
-            console.log('openId:'+openid)
+            vm.setData({
+              url: 'https://carshop.manmanh.com/#/?openid='+openid
+            })
             app.globalData.openId = openid
           }
         })
